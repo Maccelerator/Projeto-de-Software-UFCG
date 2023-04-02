@@ -1,10 +1,14 @@
-package com.ufcg.psoft.mercadofacil;
+package com.ufcg.psoft.mercadofacil.repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-// @Repository
-public class VolatilLoteRepository implements LoteRepository<Lote, Long> {
+import org.springframework.stereotype.Repository;
+
+import com.ufcg.psoft.mercadofacil.model.Lote;
+
+@Repository
+public class LoteVolatilRepository implements LoteRepository<Lote, Long> {
 
 	List<Lote> lotes = new ArrayList<>();
 
