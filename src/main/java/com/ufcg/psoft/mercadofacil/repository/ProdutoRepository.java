@@ -2,12 +2,12 @@ package com.ufcg.psoft.mercadofacil.repository;
 
 import java.util.List;
 
-public interface LoteRepository<T, ID> {
-    T save(T lote);
+public interface ProdutoRepository<T, ID> {
+    T save(T produto);
     T find(ID id);
     List<T> findAll();
-    T update(T lote);
-    void delete(T lote);
+    T update(T produto);
+    void delete(T produto);
     void deleteAll();
 }
 
