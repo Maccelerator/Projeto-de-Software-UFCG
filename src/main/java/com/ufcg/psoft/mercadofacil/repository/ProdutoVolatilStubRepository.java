@@ -35,11 +35,11 @@ public class ProdutoVolatilStubRepository implements ProdutoRepository<Produto, 
     public Produto update(Produto produto) {
         if(produto.getId() == 10L) {
             return Produto.builder()
-                    .id(10L)
+                    .id(7L)
                     .codigoBarra("7899137500104")
                     .nome("Produto Dez Alterado")
-                    .fabricante("Empresa Dez")
-                    .preco(450.00)
+                    .fabricante("Empresa Dez Alterado")
+                    .preco(225.50)
                     .build();
         }
         return null;

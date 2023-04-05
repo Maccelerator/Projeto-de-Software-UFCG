@@ -91,20 +91,62 @@ public class ProdutoAlterarServiceTests {
      */
 
     @Test
-    @DisplayName("Quando um novo Id inválido for fornecido ao produto")
-    void idInvalido() {}
-
-    @Test
     @DisplayName("Quando um novo Id válido for fornecido ao produto")
-    void idValido() {}
+    void idValido() {
+        // Arrange
+        produto.setId(7L);
+        Mockito.when(produtoRepository.update(produto))
+                .thenReturn(Produto.builder()
+                        .id(7L)
+                        .codigoBarra("7899137500104")
+                        .nome("Produto Dez")
+                        .fabricante("Empresa Dez Atualizado")
+                        .preco(450.00)
+                        .build()
+                );
+
+        // Act
+        Produto resultado = driver.alterar(produto);
+
+        // Assert
+        assertEquals(7L, resultado.getId());
+    }
 
     @Test
     @DisplayName("Quando altero o nome do produto com dados inválidos")
-    void alterarInvalidoNomeDoProduto() {}
+    void alterarInvalidoNomeDoProduto() {
+        //Arrange
+        produto.setNome("");
+        //Act
+        RuntimeException thrown = assertThrows(
+                RuntimeException.class,
+                () -> driver.alterar(produto)
+        );
+        //Assert
+        assertEquals("Nome invalido!", thrown.getMessage());
+    }
 
     @Test
-    @DisplayName("Quando o preço é maior a zero")
-    void precoMaiorQueZero() {}
+    @DisplayName("Quando o preço é maior que zero")
+    void precoMaiorQueZero() {
+        // Arrange
+        produto.setPreco(225.50);
+        Mockito.when(produtoRepository.update(produto))
+                .thenReturn(Produto.builder()
+                        .id(10L)
+                        .codigoBarra("7899137500104")
+                        .nome("Produto Dez Atualizado")
+                        .fabricante("Empresa Dez")
+                        .preco(225.50)
+                        .build()
+                );
+
+        // Act
+        Produto resultado = driver.alterar(produto);
+
+        // Assert
+        assertEquals(225.50, resultado.getPreco());
+    }
 
     @Test
     @DisplayName("Quando o código de barras é válido")
@@ -127,10 +169,36 @@ public class ProdutoAlterarServiceTests {
     void codigoBarraIvnalidoDigitoVerificador() {}
 
     @Test
-    @DisplayName("Quando um novo nome válido for fornecido para o fabricante")
-    void quandoNovoFabricanteValido() {}
+    @DisplayName("Quando um novo fabricante válido for fornecido para o produto")
+    void quandoNovoFabricanteValido() {
+        // Arrange
+        produto.setFabricante("Empresa Dez Atualizado");
+        Mockito.when(produtoRepository.update(produto))
+                .thenReturn(Produto.builder()
+                        .id(10L)
+                        .codigoBarra("7899137500104")
+                        .nome("Produto Dez")
+                        .fabricante("Empresa Dez Atualizado")
+                        .preco(450.00)
+                        .build()
+                );
+
+        // Act
+        Produto resultado = driver.alterar(produto);
+
+        // Assert
+        assertEquals("Empresa Dez Atualizado", resultado.getFabricante());
+    }
 
     @Test
     @DisplayName("Quando altero o fabricante do produto com dados válidos")
-    void alterarFabricanteDoProduto() {}
+    void alterarFabricanteDoProduto() {
+        /* AAA Pattern */
+        //Arrange
+        produto.setFabricante("Empresa Dez Alterado");
+        //Act
+        Produto resultado = driver.alterar(produto);
+        //Assert
+        assertEquals("Empresa Dez Alterado", resultado.getFabricante());
+    }
 }

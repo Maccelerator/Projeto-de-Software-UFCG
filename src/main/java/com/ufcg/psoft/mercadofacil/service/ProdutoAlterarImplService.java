@@ -14,7 +14,14 @@ public class ProdutoAlterarImplService implements ProdutoAlterarService {
         if(produtoAlterado.getPreco()<=0) {
             throw new RuntimeException("Preco invalido!");
         }
+        if(produtoAlterado.getNome().equals("")) {
+            throw new RuntimeException("Nome invalido!");
+        }
+        if(produtoAlterado.getFabricante().equals("")) {
+            throw new RuntimeException("Nome invalido!");
+        }
         return produtoRepository.update(produtoAlterado);
     }
+
 }
 
