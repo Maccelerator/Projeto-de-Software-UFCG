@@ -60,4 +60,30 @@ public class ProdutoAlterarServiceTests {
         assertEquals("Produto Dez Atualizado", resultado.getNome());
     }
 
+    @Test
+    @DisplayName("Quando altero o nome do produto com dados válidos")
+    void alterarNomeDoProduto() {
+        /* AAA Pattern */
+        //Arrange
+        produto.setNome("Nome Produto Alterado");
+        //Act
+        Produto resultado = driver.alterar(produto);
+        //Assert
+        assertEquals("Nome Produto Alterado", resultado.getNome());
+    }
+
+    @Test
+    @DisplayName("Quando o preço é menor ou igual a zero")
+    void precoMenorIgualAZero() {
+        //Arrange
+        produto.setPreco(0.0);
+        //Act
+        RuntimeException thrown = assertThrows(
+                RuntimeException.class,
+                () -> driver.alterar(produto)
+        );
+        //Assert
+        assertEquals("Preco invalido!", thrown.getMessage());
+    }
+
 }
