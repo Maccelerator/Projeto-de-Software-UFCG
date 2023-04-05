@@ -86,4 +86,51 @@ public class ProdutoAlterarServiceTests {
         assertEquals("Preco invalido!", thrown.getMessage());
     }
 
+    /**
+     * Atributos do produto: Id, Nome, Preço, Código de Barras e Fabricante.
+     */
+
+    @Test
+    @DisplayName("Quando um novo Id inválido for fornecido ao produto")
+    void idInvalido() {}
+
+    @Test
+    @DisplayName("Quando um novo Id válido for fornecido ao produto")
+    void idValido() {}
+
+    @Test
+    @DisplayName("Quando altero o nome do produto com dados inválidos")
+    void alterarInvalidoNomeDoProduto() {}
+
+    @Test
+    @DisplayName("Quando o preço é maior a zero")
+    void precoMaiorQueZero() {}
+
+    @Test
+    @DisplayName("Quando o código de barras é válido")
+    void codigoBarraValido() {}
+
+    @Test
+    @DisplayName("Quando o país no código de barras é inválido")
+    void codigoBarraInvalidoPais() {}
+
+    @Test
+    @DisplayName("Quando a empresa no código de barras é inválido")
+    void codigoBarraInvalidoEmpresa() {}
+
+    @Test
+    @DisplayName("Quando o produto no código de barras é inválido")
+    void codigoBarraIvnalidoProduto() {}
+
+    @Test
+    @DisplayName("Quando o dígito verificador no código de barras é inválido")
+    void codigoBarraIvnalidoDigitoVerificador() {}
+
+    @Test
+    @DisplayName("Quando um novo nome válido for fornecido para o fabricante")
+    void quandoNovoFabricanteValido() {}
+
+    @Test
+    @DisplayName("Quando altero o fabricante do produto com dados válidos")
+    void alterarFabricanteDoProduto() {}
 }
