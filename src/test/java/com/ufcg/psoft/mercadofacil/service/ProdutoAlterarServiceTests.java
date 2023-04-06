@@ -150,23 +150,68 @@ public class ProdutoAlterarServiceTests {
 
     @Test
     @DisplayName("Quando o código de barras é válido")
-    void codigoBarraValido() {}
+    void codigoBarraValido() {
+    	// Arrange
+        produto.setCodigoBarra("7899137550604");
+        Mockito.when(produtoRepository.update(produto))
+                .thenReturn(Produto.builder()
+                        .id(10L)
+                        .codigoBarra("7899137550604")
+                        .nome("Produto Dez Atualizado")
+                        .fabricante("Empresa Dez")
+                        .preco(225.50)
+                        .build()
+                );
+
+        // Act
+        Produto resultado = driver.alterar(produto);
+
+        // Assert
+        assertEquals("7899137550604", resultado.getCodigoBarra());
+    }
 
     @Test
     @DisplayName("Quando o país no código de barras é inválido")
-    void codigoBarraInvalidoPais() {}
+    void codigoBarraInvalidoPais() {
+    	// Arrange
+        produto.setCodigoBarra("1119137550604");
+        // Act
+        RuntimeException thrown = assertThrows(
+                RuntimeException.class,
+                () -> driver.alterar(produto)
+        );
+        //Assert
+        assertEquals("País invalido!", thrown.getMessage());
+        
+    }
 
     @Test
     @DisplayName("Quando a empresa no código de barras é inválido")
-    void codigoBarraInvalidoEmpresa() {}
-
-    @Test
-    @DisplayName("Quando o produto no código de barras é inválido")
-    void codigoBarraIvnalidoProduto() {}
+    void codigoBarraInvalidoEmpresa() {
+    	// Arrange
+        produto.setCodigoBarra("7898137500104");
+        // Act
+        RuntimeException thrown = assertThrows(
+                RuntimeException.class,
+                () -> driver.alterar(produto)
+        );
+        //Assert
+        assertEquals("Empresa invalido!", thrown.getMessage());
+    }
 
     @Test
     @DisplayName("Quando o dígito verificador no código de barras é inválido")
-    void codigoBarraIvnalidoDigitoVerificador() {}
+    void codigoBarraIvnalidoDigitoVerificador() {
+    	// Arrange
+        produto.setCodigoBarra("7898137545674");
+        // Act
+        RuntimeException thrown = assertThrows(
+                RuntimeException.class,
+                () -> driver.alterar(produto)
+        );
+        //Assert
+        assertEquals("Produto invalido!", thrown.getMessage());
+    }
 
     @Test
     @DisplayName("Quando um novo fabricante válido for fornecido para o produto")
@@ -201,4 +246,19 @@ public class ProdutoAlterarServiceTests {
         //Assert
         assertEquals("Empresa Dez Alterado", resultado.getFabricante());
     }
+    
+    @Test
+    @DisplayName("Quando altero o fabricante do produto com dados inválidos")
+    void alterarInvalidoFabricanteDoProduto() {
+        //Arrange
+        produto.setFabricante("");
+        //Act
+        RuntimeException thrown = assertThrows(
+                RuntimeException.class,
+                () -> driver.alterar(produto)
+        );
+        //Assert
+        assertEquals("Fabricante invalido!", thrown.getMessage());
+    }
+    
 }

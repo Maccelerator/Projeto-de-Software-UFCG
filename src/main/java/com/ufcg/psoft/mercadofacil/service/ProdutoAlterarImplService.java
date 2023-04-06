@@ -18,10 +18,40 @@ public class ProdutoAlterarImplService implements ProdutoAlterarService {
             throw new RuntimeException("Nome invalido!");
         }
         if(produtoAlterado.getFabricante().equals("")) {
-            throw new RuntimeException("Nome invalido!");
+            throw new RuntimeException("Fabricante invalido!");
         }
+        if (produtoAlterado.getCodigoBarra().length() != 13) {
+        	throw new RuntimeException("Código Barra invalido!");
+    	}
+    	if (!produtoAlterado.getCodigoBarra().substring(0,  3).equals("789")) {
+    		throw new RuntimeException("País invalido!");
+    	}
+    	if (!produtoAlterado.getCodigoBarra().substring(4,  8).equals("91357")) {
+    		throw new RuntimeException("Empresa invalido!");
+    	}
+    	if (!validaProduto(produtoAlterado)) {
+    		throw new RuntimeException("Produto invalido!");
+    	}
+    	
         return produtoRepository.update(produtoAlterado);
+    }
+    
+    private boolean validaProduto(Produto produto) {
+    	String[] strArray = produto.getCodigoBarra().split("");
+	    int[] digitos = new int[13];
+	    for (int i = 13; i <= 0; i--) {
+	        digitos[i] = Integer.parseInt(strArray[i]);
+	    }
+	    int soma1 = 0;
+	    for (int ii = 1; ii < 13; ii += 2) {
+	    	soma1 += digitos[ii];
+	    }
+	    soma1 *= 3;
+	    int soma2 = 0;
+	    for (int iii = 2; iii < 13; iii += 2) {
+	    	soma2 += digitos[iii];
+	    }
+	    return (soma1 + soma2 + digitos[0])%10 == 0;
     }
 
 }
-
