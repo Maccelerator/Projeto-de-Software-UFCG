@@ -36,7 +36,7 @@ public class ProdutoVolatilStubRepository implements ProdutoRepository<Produto, 
         if(produto.getId() == 10L) {
             return Produto.builder()
                     .id(7L)
-                    .codigoBarra("7899137500104")
+                    .codigoBarra("1119137550604")
                     .nome("Produto Dez Alterado")
                     .fabricante("Empresa Dez Alterado")
                     .preco(225.50)

@@ -61,7 +61,12 @@ public class ProdutoV1ControllerTests {
 
             // Assert
             assertEquals(resultado.getNome(), "Produto Dez Alterado");
+            
         }
+        
+        @Test
+        @DisplayName("Quando alteramos o nome do produto com dados inválidos")
+        void quandoAlteramosNomeDoProdutoInvalido() throws Exception {}
 
     }
 
@@ -69,12 +74,91 @@ public class ProdutoV1ControllerTests {
     @DisplayName("Conjunto de casos de verificação da regra sobre o preço")
     class ProdutoValidacaoRegrasDoPreco {
         // Implementar os testes aqui
+    	
+    	@Test
+        @DisplayName("Quando alteramos o preço do produto com dados válidos")
+        void quandoAlteramosPrecoDoProdutoValido() throws Exception {
+    		// Arrange
+            produto.setPreco(225.50);
+
+            // Act
+            String responseJsonString = driver.perform(put("/v1/produtos/" + produto.getId())
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(produto)))
+                    .andExpect(status().isOk())
+                    .andDo(print())
+                    .andReturn().getResponse().getContentAsString();
+
+            Produto resultado = objectMapper.readValue(responseJsonString, Produto.ProdutoBuilder.class).build();
+
+            // Assert
+            assertEquals(resultado.getPreco(), 225.50);
+    	}
+    	
+    	@Test
+        @DisplayName("Quando alteramos o nome do produto com dados inválidos")
+        void quandoAlteramosPrecoDoProdutoInvalido() throws Exception {}
+    	
     }
 
     @Nested
     @DisplayName("Conjunto de casos de verificação da validação do código de barras")
     class ProdutoValidacaoCodigoDeBarras {
         // Implementar os testes aqui
+    	
+    	@Test
+        @DisplayName("Quando alteramos o código de barras do produto com dados válidos")
+        void quandoAlteramosCodigoBarraDoProdutoValido() throws Exception {
+    		// Arrange
+            produto.setCodigoBarra("1119137550604");
+
+            // Act
+            String responseJsonString = driver.perform(put("/v1/produtos/" + produto.getId())
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(produto)))
+                    .andExpect(status().isOk())
+                    .andDo(print())
+                    .andReturn().getResponse().getContentAsString();
+
+            Produto resultado = objectMapper.readValue(responseJsonString, Produto.ProdutoBuilder.class).build();
+
+            // Assert
+            assertEquals(resultado.getCodigoBarra(), "1119137550604");
+    	}
+    	
+    	@Test
+        @DisplayName("Quando alteramos o código de barras do produto com dados inválidos")
+        void quandoAlteramosCodigoBarraDoProdutoInvalido() throws Exception {}
+    }
+    
+    @Nested
+    @DisplayName("Conjunto de casos de verificação da validação do fabricante")
+    class ProdutoValidacaoFabricante {
+        // Implementar os testes aqui
+    	
+    	@Test
+        @DisplayName("Quando alteramos o fabricante do produto com dados válidos")
+        void quandoAlteramosCodigoBarraDoProdutoValido() throws Exception {
+    		// Arrange
+            produto.setFabricante("Empresa Dez Alterado");
+
+            // Act
+            String responseJsonString = driver.perform(put("/v1/produtos/" + produto.getId())
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(produto)))
+                    .andExpect(status().isOk())
+                    .andDo(print())
+                    .andReturn().getResponse().getContentAsString();
+
+            Produto resultado = objectMapper.readValue(responseJsonString, Produto.ProdutoBuilder.class).build();
+
+            // Assert
+            assertEquals(resultado.getFabricante(), "Empresa Dez Alterado");
+    	}
+    	
+    	@Test
+        @DisplayName("Quando alteramos o fabricante do produto com dados inválidos")
+        void quandoAlteramosCodigoBarraDoProdutoInvalido() throws Exception {}
     }
 
 }
