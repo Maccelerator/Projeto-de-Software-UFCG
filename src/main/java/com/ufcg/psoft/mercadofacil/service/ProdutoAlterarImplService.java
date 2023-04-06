@@ -12,25 +12,25 @@ public class ProdutoAlterarImplService implements ProdutoAlterarService {
     @Override
     public Produto alterar(Produto produtoAlterado) {
         if(produtoAlterado.getPreco()<=0) {
-            throw new RuntimeException("Preco invalido!");
+            throw new RuntimeException("Preco inválido!");
         }
         if(produtoAlterado.getNome().equals("")) {
-            throw new RuntimeException("Nome invalido!");
+            throw new RuntimeException("Nome inválido!");
         }
         if(produtoAlterado.getFabricante().equals("")) {
-            throw new RuntimeException("Fabricante invalido!");
+            throw new RuntimeException("Fabricante inválido!");
         }
         if (produtoAlterado.getCodigoBarra().length() != 13) {
-        	throw new RuntimeException("Código Barra invalido!");
+        	throw new RuntimeException("Código Barra inválido!");
     	}
     	if (!produtoAlterado.getCodigoBarra().substring(0,  3).equals("789")) {
-    		throw new RuntimeException("País invalido!");
+    		throw new RuntimeException("País inválido!");
     	}
     	if (!produtoAlterado.getCodigoBarra().substring(4,  8).equals("91357")) {
-    		throw new RuntimeException("Empresa invalido!");
+    		throw new RuntimeException("Empresa inválido!");
     	}
     	if (!validaProduto(produtoAlterado)) {
-    		throw new RuntimeException("Produto invalido!");
+    		throw new RuntimeException("Produto inválido!");
     	}
     	
         return produtoRepository.update(produtoAlterado);
